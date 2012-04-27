@@ -10,11 +10,11 @@
   }
   iframe {
     background-color: #fff;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    border: 1px solid #333;
   }
   .particle {
     position: absolute;
-    opacity: 0.8;
+    opacity: 0.9;
   }
   #container {
     overflow: hidden;
@@ -53,7 +53,7 @@
   var urlList = [
       'http://www.google.com'
     , 'http://www.amazon.com'
-    , 'http://www.wikipedia.org'
+    , 'http://en.wikipedia.org/wiki/Electrical_circuit'
     , 'http://www.ustream.com'
     , 'http://www.baidu.com'
     , 'http://www.apple.com/iphone/'
@@ -88,11 +88,11 @@
   camera.position.z = 2000;
   
   $('#text p').each(function(el) {
-    var text = '';
+    var html = '';
     for (var i = 0, len = this.innerText.length; i < len; ++i) {
-      text += '<span>' + this.innerText[i] + '</span>';
+      html += '<span>' + this.innerText[i] + '</span>';
     }
-    this.innerHTML = text;
+    this.innerHTML = html;
   });
   
   $.ajax({
@@ -102,7 +102,6 @@
     , jsonpCallback: 'typeSquare'
     , success: function(data) {
         $('#text p span').each(function(el) {
-          console.log(data[~~(Math.random() * data.length)]);
           this.style.fontFamily = data[~~(Math.random() * data.length)];
         });
       }
@@ -113,15 +112,9 @@
    */
 
   urlList.forEach(function(url) {
-    /*
-    var elem = document.createElement('div');
-    elem.innerText = '*';
-    elem.className = 'particle';
-    */
-    
     var elem = document.createElement('iframe')
       , particle = new THREE.Particle(new THREE.ParticleDOMMaterial(elem));
-    // elem.setAttribute('sandbox', 'sandbox');
+    
     elem.setAttribute('src', url);
     elem.style.width = '1024px';
     elem.style.height = '768px';
@@ -130,8 +123,8 @@
     particle.position.z = 500 - Math.random() * 1000;
     particle.position.y = 500 - Math.random() * 1500;
     particle.position.x = 1250 - Math.random() * 2500;
-    scene.add(particle);
     
+    scene.add(particle);
     container.appendChild(elem);
   });
   
