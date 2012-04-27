@@ -1,9 +1,166 @@
 <!DOCTYPE html>
 <html>
+<head>
+  <meta charset="utf-8">
+  <title>Circuit Lab.</title>
+  <style>
+  body {
+    margin: 0;
+    padding: 0;
+  }
+  iframe {
+    background-color: #fff;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+  }
+  .particle {
+    position: absolute;
+    opacity: 0.8;
+  }
+  #container {
+    overflow: hidden;
+    position: relative;
+  }
+  #text {
+    position: absolute;
+    top: 10em; left: 0;
+    z-index: 1000;
+    width: 100%;
+  }
+  #text p {
+    text-align: center;
+  }
+  #text p[lang=en] {
+    margin: 0; padding: 0;
+    font-size: 8em;
+  }
+  #text p[lang=ja] {
+    margin: 0; padding: 0;
+    font-size: 5em;
+  }
+  </style>
+  <script src="http://typesquare.com/accessor/script/typesquare.js?QBFWygYczgk%3D"></script>
+</head>
 <body>
-It works!
-
+<div id="container"></div>
+<div id="text">
+  <p lang="en">Circuit Lab.</p>
+  <p lang="ja">サーキット・ラボ</p>
+</div>
+<script src="https://raw.github.com/mrdoob/three.js/r49/build/Three.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js"></script>
+<script>
+(function(window, document, $, THREE, undefined) {
+  var urlList = [
+      'http://www.google.com'
+    , 'http://www.amazon.com'
+    , 'http://www.wikipedia.org'
+    , 'http://www.ustream.com'
+    , 'http://www.baidu.com'
+    , 'http://www.apple.com/iphone/'
+  ];
+  
+  $(function() {
+  var camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 10000)
+    , container = document.getElementById('container')
+    , scene = new THREE.Scene()
+    , renderer = new THREE.DOMRenderer()
+    , mouseX = 0
+    , mouseY = 0
+    , windowHalfX = window.innerWidth / 2
+    , windowHalfY = window.innerHeight / 2
+    , now = +(new Date());
+  
+  /**
+   * Setup stage size.
+   */
+  
+  $(window).on('resize', function(e) {
+    container.style.width = window.innerWidth + 'px';
+    container.style.height = window.innerHeight + 'px';
+  }).trigger('resize');
+  
+  /**
+   * Setup camera and renderer.
+   */
+  
+  scene.add(camera);
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  camera.position.z = 2000;
+  
+  $('#text p').each(function(el) {
+    var text = '';
+    for (var i = 0, len = this.innerText.length; i < len; ++i) {
+      text += '<span>' + this.innerText[i] + '</span>';
+    }
+    this.innerHTML = text;
+  });
+  
+  $.ajax({
+      url: 'https://raw.github.com/gist/2508281/typesquare.jsonp'
+    , dataType: 'jsonp'
+    , jsonp: false
+    , jsonpCallback: 'typeSquare'
+    , success: function(data) {
+        $('#text p span').each(function(el) {
+          console.log(data[~~(Math.random() * data.length)]);
+          this.style.fontFamily = data[~~(Math.random() * data.length)];
+        });
+      }
+  });
+    
+  /**
+   * Background perticles.
+   */
+
+  urlList.forEach(function(url) {
+    /*
+    var elem = document.createElement('div');
+    elem.innerText = '*';
+    elem.className = 'particle';
+    */
+    
+    var elem = document.createElement('iframe')
+      , particle = new THREE.Particle(new THREE.ParticleDOMMaterial(elem));
+    // elem.setAttribute('sandbox', 'sandbox');
+    elem.setAttribute('src', url);
+    elem.style.width = '1024px';
+    elem.style.height = '768px';
+    elem.className = 'particle';
+    
+    particle.position.z = 500 - Math.random() * 1000;
+    particle.position.y = 500 - Math.random() * 1500;
+    particle.position.x = 1250 - Math.random() * 2500;
+    scene.add(particle);
+    
+    container.appendChild(elem);
+  });
+  
+  /**
+   * Update camera position.
+   */
+
+  $(window).on('mousemove', function(e) {
+    mouseX = (e.clientX - windowHalfX);
+    mouseY = (e.clientY - windowHalfY);
+  });
+  
+  /**
+   * Rendering.
+   */
+
+  (function() {
+    var time = +(new Date()) - now;
+    
+    camera.position.x += (mouseX - camera.position.x) * .05;
+    camera.position.y += (-(mouseY - 200) - camera.position.y) * .05;
+    camera.lookAt(scene.position);
+    
+    renderer.render(scene, camera);
+    requestAnimationFrame(arguments.callee);
+  })();
+  });
+})(window, document, jQuery, THREE);
+</script>
 <script>
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-30786582-1']);
@@ -14,7 +171,7 @@ It works!
     var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
     ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-   })();
+  })();
 </script>
 </body>
 </html>
