@@ -7,6 +7,8 @@
   body {
     margin: 0;
     padding: 0;
+    font-family: 'Helvetica Neue';
+    font-weight: 100;
   }
   iframe {
     background-color: #fff;
@@ -21,6 +23,7 @@
     position: relative;
   }
   #text {
+    display: none;
     position: absolute;
     top: 10em; left: 0;
     z-index: 1000;
@@ -29,13 +32,16 @@
   #text p {
     text-align: center;
   }
+  #text p span {
+    display: inline-block;
+  }
   #text p[lang=en] {
     margin: 0; padding: 0;
-    font-size: 8em;
+    font-size: 10em;
   }
   #text p[lang=ja] {
     margin: 0; padding: 0;
-    font-size: 5em;
+    font-size: 4em;
   }
   </style>
   <script src="http://typesquare.com/accessor/script/typesquare.js?QBFWygYczgk%3D"></script>
@@ -58,7 +64,7 @@
     , 'http://www.baidu.com'
     , 'http://www.apple.com/iphone/'
   ];
-  
+  urlList = [];
   $(function() {
   var camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 10000)
     , container = document.getElementById('container')
@@ -138,8 +144,8 @@
 $(function() {
   $('#text p').each(function(el) {
     var html = '';
-    for (var i = 0, len = this.innerText.length; i < len; ++i) {
-      html += '<span>' + this.innerText[i] + '</span>';
+    for (var i = 0, len = this.innerHTML.length; i < len; ++i) {
+      html += '<span>' + this.innerHTML[i] + '</span>';
     }
     this.innerHTML = html;
   });
@@ -151,8 +157,12 @@ $(function() {
     , jsonpCallback: 'typeSquare'
     , success: function(data) {
         $('#text p span').each(function(el) {
-          this.style.fontFamily = data[~~(Math.random() * data.length)];
+          var scale = 'scale(' + (0.5 + Math.random()) + ')'
+            , rotate = 'rotate(' + ~~(15 - Math.random() * 30) + 'deg)';
+          // this.style.fontFamily = data[~~(Math.random() * data.length)];
+          this.style.webkitTransform = this.style.MozTransform = [scale, rotate].join(' ');
         });
+        $('#text').show();
       }
   });
 });
