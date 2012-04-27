@@ -86,26 +86,6 @@
   scene.add(camera);
   renderer.setSize(window.innerWidth, window.innerHeight);
   camera.position.z = 2000;
-  
-  $('#text p').each(function(el) {
-    var html = '';
-    for (var i = 0, len = this.innerText.length; i < len; ++i) {
-      html += '<span>' + this.innerText[i] + '</span>';
-    }
-    this.innerHTML = html;
-  });
-  
-  $.ajax({
-      url: 'https://raw.github.com/gist/2508281/typesquare.jsonp'
-    , dataType: 'jsonp'
-    , jsonp: false
-    , jsonpCallback: 'typeSquare'
-    , success: function(data) {
-        $('#text p span').each(function(el) {
-          this.style.fontFamily = data[~~(Math.random() * data.length)];
-        });
-      }
-  });
     
   /**
    * Background perticles.
@@ -153,6 +133,55 @@
   })();
   });
 })(window, document, jQuery, THREE);
+</script>
+<script>
+$(function() {
+  $('#text p').each(function(el) {
+    var html = '';
+    for (var i = 0, len = this.innerText.length; i < len; ++i) {
+      html += '<span>' + this.innerText[i] + '</span>';
+    }
+    this.innerHTML = html;
+  });
+  
+  $.ajax({
+      url: 'https://raw.github.com/gist/2508281/typesquare.jsonp'
+    , dataType: 'jsonp'
+    , jsonp: false
+    , jsonpCallback: 'typeSquare'
+    , success: function(data) {
+        $('#text p span').each(function(el) {
+          this.style.fontFamily = data[~~(Math.random() * data.length)];
+        });
+      }
+  });
+});
+</script>
+<script>
+(function() {
+  var link = document.createElement('link')
+    , canvas = document.createElement('canvas')
+    , ctx = canvas.getContext('2d');
+  
+  link.type = 'image/x-icon';
+  link.rel = 'shortcut icon';
+  
+  canvas.width = canvas.height = 16;
+  
+  $(function() {
+    document.getElementsByTagName('head')[0].appendChild(link);
+  });
+  
+  (function() {
+    var image = ctx.getImageData(0, 0, 16, 16);
+    for (var i = 0, len = image.data.length; i < len; ++i) {
+      image.data[i] = ~~(Math.random() * 256);
+    }
+    ctx.putImageData(image, 0, 0);
+    link.href = canvas.toDataURL('image/png');
+    requestAnimationFrame(arguments.callee);
+  })();
+}());
 </script>
 <script>
   var _gaq = _gaq || [];
