@@ -25,6 +25,7 @@ void draw() {
   img.updatePixels();
   background(255);
   image(img, 0, 0);
+  processingDraw();
 }
 
 

@@ -7,7 +7,8 @@
 
 !function(window, document, $, undefined) {
 
-  var p5;
+  var p5
+    , stats = new Stats();
     
   /**
    * Expose callback function for Processing.js
@@ -17,8 +18,14 @@
     p5 = Processing.getInstanceById('p5stage');
     $(window).resize();
   };
+
+  window.processingDraw = stats.update;
   
   $(function() {
+    stats.getDomElement().style.position = 'absolute';
+    stats.getDomElement().style.bottom = '5px';
+    stats.getDomElement().style.right = '5px';
+    document.body.appendChild(stats.getDomElement()); 
   	$(window).bind("resize orientationchange", function(event) {  		
   		if (p5 && p5.setStageSize) {
   			p5.setStageSize(windowWidth, windowHeight);
