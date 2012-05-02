@@ -1,4 +1,4 @@
-Particle[] particles = new Particle[100000];
+Particle[] particles = new Particle[20000];
 
 int m  = 0;  // margin
 int ww = 1000; // window width
