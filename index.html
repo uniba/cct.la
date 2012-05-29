@@ -23,7 +23,7 @@
     position: relative;
   }
   #text {
-    display: none;
+    /* display: none; */
     position: absolute;
     top: 10em; left: 0;
     z-index: 1000;
@@ -43,6 +43,17 @@
     margin: 0; padding: 0;
     font-size: 4em;
   }
+  #footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+  }
+  #footer p {
+    font-size: 3.5em;
+    margin: auto auto;
+  }
   </style>
   <script src="http://typesquare.com/accessor/script/typesquare.js?QBFWygYczgk%3D"></script>
 </head>
@@ -51,6 +62,9 @@
 <div id="text">
   <p lang="en">Circuit Lab.</p>
   <p lang="ja">サーキット・ラボ</p>
+</div>
+<div id="footer">
+  <p><a href="http://a307.cct.la/">常設展示はこちら</a></p>
 </div>
 <script src="https://raw.github.com/mrdoob/three.js/r49/build/Three.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js"></script>
@@ -150,21 +164,13 @@ $(function() {
     this.innerHTML = html;
   });
   
-  $.ajax({
-      url: 'https://raw.github.com/gist/2508281/typesquare.jsonp'
-    , dataType: 'jsonp'
-    , jsonp: false
-    , jsonpCallback: 'typeSquare'
-    , success: function(data) {
-        $('#text p span').each(function(el) {
-          var scale = 'scale(' + (0.5 + Math.random()) + ')'
-            , rotate = 'rotate(' + ~~(15 - Math.random() * 30) + 'deg)';
-          // this.style.fontFamily = data[~~(Math.random() * data.length)];
-          this.style.webkitTransform = this.style.MozTransform = [scale, rotate].join(' ');
-        });
-        $('#text').show();
-      }
+  $('#text p span').each(function(el) {
+    var scale = 'scale(' + (0.5 + Math.random()) + ')'
+      , rotate = 'rotate(' + ~~(15 - Math.random() * 30) + 'deg)';
+    this.style.webkitTransform = this.style.MozTransform = [scale, rotate].join(' ');
   });
+
+  $('#text').show();
 });
 </script>
 <script>
