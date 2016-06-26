@@ -8,7 +8,7 @@
     color: #333;
     margin: 0;
     padding: 0;
-    font-family: monospace  ;
+    font-family: monospace;
     font-weight: 300;
   }
   h1, h2 {
@@ -23,9 +23,26 @@
     border-top: 1px solid #eeeeee;
     border-bottom: 1px solid #ffffff;
   }
+  video {
+    position: fixed;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    min-width: 100%;
+    width: auto;
+    min-height: 100%;
+    height: auto;
+    image-rendering: pixelated;
+  }
+  #wrapper {
+    position: relative;
+    z-index: 1;
+    background-image: repeating-linear-gradient(to bottom, white, white 1px, transparent 1px, white 2px);
+  }
   #container {
     width: 640px;
-    margin: 1em auto 2em auto;
+    margin: 0 auto;
+    padding: 1em 0 2em
   }
   .ustream {
     text-align: right;
@@ -37,33 +54,36 @@
   </style>
 </head>
 <body>
-<div id="container">
-<h1>Circuit Lab.</h1>
-<hr>
-<h2>About</h2>
-<p>Circuit Lab.(サーキット・ラボ)は<a href="http://uniba.jp" target="_blank">ユニバ株式会社</a>の研究拠点です。ここでは主に、リアルタイム映像、Arduino を用いた回路実装、リアルタイムウェブをはじめとした、メディアアートと隣接する分野の研究をしています。5坪ほどのスペースに、工具やパソコン、電子部品、3Dプリンタなどが常備してあり、いつでも使えるようになっています。ふとしたときに思いついたアイデアを、時間が見つかり次第試しに作ってみるということができる場所です。</p>
-<h2>Blog</h2>
-<ul>
-  <li><a href="http://feed.uniba.jp" target="_blank">http://feed.uniba.jp/</a></li>
-</ul>
-<h2>Stream</h2>
-<ul>
-  <li>Circuit Lab Environmental Sensors @COSM : <a href="https://cosm.com/feeds/87638" target="_blank">https://cosm.com/feeds/87638</a></li>
-</ul>
-<iframe src="https://api.cosm.com/v2/feeds/87638/datastreams/temperature.png?width=640&height=220&colour=%23f15a24&duration=1day&title=Temperature%20%40%20Circuit%20Lab.&show_axis_labels=true&detailed_grid=true" width="640" height="220"></iframe>
-<h2>ZINE for MAKER FAIR TOKYO 2012</h2>
-<img src="assets/images/mft2012.jpg" alt="mft2012" width="640" height="452" />
-<ul>
-  <li>PDF : <a href="assets/pdf/MFT2012.pdf" target="_blank">MFT2012.pdf</a>(14MB)</li>
-</ul>
-<h2>Exhibitions (Under Construction)</h2>
-<ul>
-  <li><a href="http://a307.cct.la:3000/" target="_blank">kaina</a></li>
-  <li><a href="http://a307.cct.la:3001/" target="_blank">sayd</a></li>
-</ul>
-<hr>
-<address>150-0002 東京都渋谷区渋谷1-3-18 ビラ・モデルナA307</address>
-<p>青山通りから少し入ったところに、四角い積み木をずらして積んだような、ギザギザした形の建物があります。この建物、「ビラ・モデルナ」は、ル・コルビジェに師事した坂倉準三氏による設計で、1974年に建てられました。シンボルツリーの生える中庭を抜け、青緑色の回転ドアから中に入ると、古いホテルのようなフロントがあります。ここで鍵を借りて、エレベーターで3階へ。右側にある307号室がサー キット・ラボです。ちなみに、ここからユニバ社のオフィスまでは、徒歩5分の距離です。</p>
+<video src="./assets/images/cctla.mp4" autoplay loop></video>
+<div id="wrapper">
+  <div id="container">
+    <h1>Circuit Lab.</h1>
+    <hr>
+    <h2>About</h2>
+    <p>Circuit Lab.(サーキット・ラボ)は<a href="http://uniba.jp" target="_blank">ユニバ株式会社</a>の研究拠点です。ここでは主に、リアルタイム映像、Arduino を用いた回路実装、リアルタイムウェブをはじめとした、メディアアートと隣接する分野の研究をしています。5坪ほどのスペースに、工具やパソコン、電子部品、3Dプリンタなどが常備してあり、いつでも使えるようになっています。ふとしたときに思いついたアイデアを、時間が見つかり次第試しに作ってみるということができる場所です。</p>
+    <h2>Blog</h2>
+    <ul>
+      <li><a href="http://feed.uniba.jp" target="_blank">http://feed.uniba.jp/</a></li>
+    </ul>
+    <h2>Stream</h2>
+    <ul>
+      <li>Circuit Lab Environmental Sensors @COSM : <a href="https://cosm.com/feeds/87638" target="_blank">https://cosm.com/feeds/87638</a></li>
+    </ul>
+    <iframe src="https://api.cosm.com/v2/feeds/87638/datastreams/temperature.png?width=640&height=220&colour=%23f15a24&duration=1day&title=Temperature%20%40%20Circuit%20Lab.&show_axis_labels=true&detailed_grid=true" width="640" height="220"></iframe>
+    <h2>ZINE for MAKER FAIR TOKYO 2012</h2>
+    <img src="assets/images/mft2012.jpg" alt="mft2012" width="640" height="452" />
+    <ul>
+      <li>PDF : <a href="assets/pdf/MFT2012.pdf" target="_blank">MFT2012.pdf</a>(14MB)</li>
+    </ul>
+    <h2>Exhibitions (Under Construction)</h2>
+    <ul>
+      <li><a href="http://a307.cct.la:3000/" target="_blank">kaina</a></li>
+      <li><a href="http://a307.cct.la:3001/" target="_blank">sayd</a></li>
+    </ul>
+    <hr>
+    <address>150-0002 東京都渋谷区渋谷1-3-18 ビラ・モデルナA307</address>
+    <p>青山通りから少し入ったところに、四角い積み木をずらして積んだような、ギザギザした形の建物があります。この建物、「ビラ・モデルナ」は、ル・コルビジェに師事した坂倉準三氏による設計で、1974年に建てられました。シンボルツリーの生える中庭を抜け、青緑色の回転ドアから中に入ると、古いホテルのようなフロントがあります。ここで鍵を借りて、エレベーターで3階へ。右側にある307号室がサー キット・ラボです。ちなみに、ここからユニバ社のオフィスまでは、徒歩5分の距離です。</p>
+  </div>
 </div>
 <script src="https://raw.github.com/mrdoob/three.js/r49/build/Three.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js"></script>
@@ -72,16 +92,16 @@
   var link = document.createElement('link')
     , canvas = document.createElement('canvas')
     , ctx = canvas.getContext('2d');
-  
+
   link.type = 'image/x-icon';
   link.rel = 'shortcut icon';
-  
+
   canvas.width = canvas.height = 16;
-  
+
   $(function() {
     document.getElementsByTagName('head')[0].appendChild(link);
   });
-  
+
   (function() {
     var image = ctx.getImageData(0, 0, 16, 16);
     for (var i = 0, len = image.data.length; i < len; ++i) {
